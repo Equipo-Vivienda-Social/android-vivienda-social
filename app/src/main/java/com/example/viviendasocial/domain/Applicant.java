@@ -17,5 +17,4 @@ public class Applicant {
     private int salary;
     private int familyMembers;
     private boolean employed;
-    private List<Dwelling> dwellings;
 }

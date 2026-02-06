@@ -40,7 +40,7 @@ public class ApplicantAdapter extends RecyclerView.Adapter<ApplicantAdapter.Appl
 
         holder.itemApplicantName.setText(applicant.getName() + " " + applicant.getSurname());
         holder.itemApplicantDni.setText(applicant.getDni());
-        holder.itemApplicantSalary.setText(applicant.getSalary());
+        holder.itemApplicantSalary.setText(applicant.getSalary() + " €");
         holder.itemApplicantEmployed.setText(applicant.isEmployed()
                 ? "Empleado 🟢"
                 : "Desempleado 🔴"
