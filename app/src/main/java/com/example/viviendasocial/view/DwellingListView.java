@@ -6,67 +6,64 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viviendasocial.R;
-import com.example.viviendasocial.adapter.ApplicantAdapter;
-import com.example.viviendasocial.contract.ApplicantListContract;
-import com.example.viviendasocial.domain.Applicant;
-import com.example.viviendasocial.presenter.ApplicantListPresenter;
+import com.example.viviendasocial.adapter.DwellingAdapter;
+import com.example.viviendasocial.contract.DwellingListContract;
+import com.example.viviendasocial.domain.Dwelling;
+import com.example.viviendasocial.presenter.DwellingListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicantListView extends AppCompatActivity implements ApplicantListContract.View {
+public class DwellingListView extends AppCompatActivity implements DwellingListContract.View {
 
-    private List<Applicant> applicantList;
-    private ApplicantListContract.Presenter presenter;
-    private ApplicantAdapter adapter;
+    private List<Dwelling> dwellingList;
+    private DwellingAdapter adapter;
+    private DwellingListContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_applicant_list_view);
+        setContentView(R.layout.activity_main);
 
-        presenter = new ApplicantListPresenter(this);
-        applicantList = new ArrayList<>();
+        presenter = new DwellingListPresenter(this);
+        dwellingList = new ArrayList<>();
 
-        RecyclerView recyclerView = findViewById(R.id.applicant_list);
-        recyclerView.setHasFixedSize(true);
+        RecyclerView recyclerView = findViewById(R.id.dwelling_list);
+        recyclerView.hasFixedSize();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new ApplicantAdapter(this, applicantList);
+        adapter = new DwellingAdapter(this, dwellingList);
         recyclerView.setAdapter(adapter);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        presenter.loadApplicants();
+        presenter.loadDwellings();
     }
 
     @Override
-    public void showApplicants(List<Applicant> applicants) {
-        applicantList.clear();
-        applicantList.addAll(applicants);
+    public void showDwellings(List<Dwelling> dwellings) {
+        dwellingList.clear();
+        dwellingList.addAll(dwellings);
         adapter.notifyDataSetChanged();
     }
 
     @Override
-    public void showError(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void showMessage(String message) {
+    public void showError(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -82,10 +79,6 @@ public class ApplicantListView extends AppCompatActivity implements ApplicantLis
             Intent intent = new Intent(this, ApplicantListView.class);
             startActivity(intent);
             return true;
-        } else if (item.getItemId() == R.id.action_register) {
-            Intent intent = new Intent(this, ApplicantRegisterView.class);
-            startActivity(intent);
-            return  true;
         }
 
         return false;

@@ -7,5 +7,12 @@
         android:id="@+id/action_getAllApplicants"
         android:icon="@android:drawable/ic_menu_myplaces"
         android:title="applicants"
+        android:iconTint="#08D7F2"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_register"
+        android:icon="@android:drawable/ic_menu_add"
+        android:iconTint="#08D7F2"
+        android:title="action_register"
         app:showAsAction="always" />
 </menu>
