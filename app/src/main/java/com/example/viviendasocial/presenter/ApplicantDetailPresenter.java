@@ -5,7 +5,7 @@ import com.example.viviendasocial.domain.Applicant;
 import com.example.viviendasocial.model.ApplicantDetailModel;
 
 public class ApplicantDetailPresenter implements ApplicantDetailContract.Presenter,
-        ApplicantDetailContract.Model.OnLoadApplicant{
+        ApplicantDetailContract.Model.OnLoadListener, ApplicantDetailContract.Model.onDeleteListener {
 
     private ApplicantDetailContract.Model  model;
     private ApplicantDetailContract.View view;
@@ -28,5 +28,21 @@ public class ApplicantDetailPresenter implements ApplicantDetailContract.Present
     @Override
     public void loadApplicant(long id) {
         model.loadApplicantById(id, this);
+    }
+
+    @Override
+    public void deleteApplicant(long id) {
+        model.deleteApplicant(id, this);
+    }
+
+    @Override
+    public void onDeleteSuccess() {
+        view.showMessage("Applicant has been deleted successfully");
+        view.navigateToApplicantList();
+    }
+
+    @Override
+    public void onDeleteError(String message) {
+        view.showError(message);
     }
 }
