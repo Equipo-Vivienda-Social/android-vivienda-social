@@ -69,6 +69,17 @@ public class DwellingDetailView extends AppCompatActivity implements DwellingDet
 		alert.create().show();
 	}
 
+	public void editDwelling(View view) {
+		long dwellingId = getIntent().getLongExtra("dwelling_id", -1);
+		if (dwellingId == -1) return;
+
+		Dwelling dwelling = adapter.getDwelling();
+
+		Intent intent = new Intent(this, DwellingRegisterView.class);
+		intent.putExtra("dwelling", dwelling);
+		startActivity(intent);
+	}
+
 	@Override
 	public void showError(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

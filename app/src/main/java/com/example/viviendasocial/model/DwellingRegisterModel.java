@@ -39,6 +39,31 @@ public class DwellingRegisterModel implements DwellingRegisterContract.Model {
 	}
 
 	@Override
+	public void modifyDwelling(Dwelling dwelling, onModifyListener listener) {
+		DwellingApiInterface api = ViviendaSocialApi.buildService(DwellingApiInterface.class);
+		Call<Dwelling> putCall = api.modifyDwelling(dwelling.getId(), dwelling);
+		putCall.enqueue(new Callback<Dwelling>() {
+			@Override
+			public void onResponse(Call<Dwelling> call, Response<Dwelling> response) {
+				if (response.code() == 200) {
+					listener.onModifySuccess(response.body());
+				} else if (response.code() == 404) {
+					listener.onModifyError("Dwelling couldn't be found");
+				} else if (response.code() == 400) {
+					listener.onModifyError("Bad Request");
+				} else if (response.code() == 500) {
+					listener.onModifyError("Internal Server error");
+				}
+			}
+
+			@Override
+			public void onFailure(Call<Dwelling> call, Throwable t) {
+				listener.onModifyError("Couldn't connect to the server");
+			}
+		});
+	}
+
+	@Override
 	public void loadApplicants(OnLoadApplicantsListener listener) {
 		ApplicantApiInterface applicantApi = ViviendaSocialApi.buildService(ApplicantApiInterface.class);
 		Call<List<Applicant>> getApplicantsCall = applicantApi.getApplicants();

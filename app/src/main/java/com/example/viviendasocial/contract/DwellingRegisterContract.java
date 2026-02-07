@@ -17,6 +17,13 @@ public interface DwellingRegisterContract {
 
 		void registerDwelling(Dwelling dwelling, OnRegisterListener listener);
 
+		interface onModifyListener {
+			void onModifySuccess(Dwelling dwelling);
+			void onModifyError(String message);
+		}
+
+		void modifyDwelling(Dwelling dwelling, DwellingRegisterContract.Model.onModifyListener listener);
+
 		interface OnLoadApplicantsListener {
 			void OnLoadSuccess(List<Applicant> applicants);
 			void OnLoadError(String message);
@@ -28,6 +35,7 @@ public interface DwellingRegisterContract {
 	interface Presenter {
 		void registerDwelling( String street, String city, String type, int room,  LocalDate buildDate, boolean available, List<Long> applicantsIds);
 
+		void modifyDwelling( long id, String street, String city, String type, int room,  LocalDate buildDate, boolean available, List<Long> applicantsIds);
 		void loadApplicants();
 	}
 

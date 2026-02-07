@@ -9,14 +9,16 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class DwellingRegisterPresenter implements DwellingRegisterContract.Presenter,
-		DwellingRegisterContract.Model.OnRegisterListener {
+		DwellingRegisterContract.Model.OnRegisterListener, DwellingRegisterContract.Model.onModifyListener {
 
 	private DwellingRegisterContract.Model model;
 	private DwellingRegisterContract.View view;
+	private Dwelling currentDwelling;
 
-	public DwellingRegisterPresenter(DwellingRegisterContract.View view) {
+	public DwellingRegisterPresenter(DwellingRegisterContract.View view, Dwelling dwelling) {
 		model = new DwellingRegisterModel();
 		this.view = view;
+		this.currentDwelling = dwelling;
 	}
 
 	@Override
@@ -31,7 +33,19 @@ public class DwellingRegisterPresenter implements DwellingRegisterContract.Prese
 				.applicantsIds(applicantsIds)
 				.build();
 
+		if (currentDwelling == null) {
+			model.registerDwelling(dwelling, this);
+		} else {
+			dwelling.setId(currentDwelling.getId());
+			model.modifyDwelling(dwelling, this);
+		}
+
 		model.registerDwelling(dwelling, this);
+	}
+
+	@Override
+	public void modifyDwelling(long id, String street, String city, String type, int room, LocalDate buildDate, boolean available, List<Long> applicantsIds) {
+		registerDwelling(street,city, type, room, buildDate, available, applicantsIds);
 	}
 
 	@Override
@@ -58,6 +72,16 @@ public class DwellingRegisterPresenter implements DwellingRegisterContract.Prese
 
 	@Override
 	public void onRegisterError(String message) {
+		view.showError(message);
+	}
+
+	@Override
+	public void onModifySuccess(Dwelling dwelling) {
+		view.showMessage("Dwelling modified succesfully");
+	}
+
+	@Override
+	public void onModifyError(String message) {
 		view.showError(message);
 	}
 }

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.viviendasocial.R;
 import com.example.viviendasocial.contract.DwellingRegisterContract;
 import com.example.viviendasocial.domain.Applicant;
+import com.example.viviendasocial.domain.Dwelling;
 import com.example.viviendasocial.presenter.DwellingRegisterPresenter;
 import com.example.viviendasocial.util.DateUtil;
 
@@ -34,8 +35,20 @@ public class DwellingRegisterView extends AppCompatActivity implements DwellingR
 
 		spinnerApplicant = findViewById(R.id.spinner_Applicant_Name);
 
-		presenter = new DwellingRegisterPresenter(this);
+		Dwelling dwelling = (Dwelling) getIntent().getSerializableExtra("dwelling");
+		presenter = new DwellingRegisterPresenter(this, dwelling);
 		presenter.loadApplicants();
+
+
+		if (dwelling != null) {
+			((EditText) findViewById(R.id.dwelling_detail_street)).setText(dwelling.getStreet());
+			((EditText) findViewById(R.id.dwelling_detail_city)).setText(dwelling.getCity());
+			((EditText) findViewById(R.id.dwelling_detail_type)).setText(dwelling.getType());
+			((EditText) findViewById(R.id.dwelling_room)).setText(String.valueOf(dwelling.getRoom()));
+			((EditText) findViewById(R.id.dwelling_buildDate)).setText(DateUtil.formatDate(dwelling.getBuildDate()));
+			((CheckBox) findViewById(R.id.dwelling_detail_available)).setChecked(dwelling.isAvailable());
+
+		}
 	}
 
 	public void registerDwelling(View view) {
@@ -43,7 +56,7 @@ public class DwellingRegisterView extends AppCompatActivity implements DwellingR
 		String city = ((EditText) findViewById(R.id.dwelling_detail_city)).getText().toString();
 		String type = ((EditText) findViewById(R.id.dwelling_detail_type)).getText().toString();
 		int room = Integer.parseInt(((EditText) findViewById(R.id.dwelling_room)).getText().toString());
-		LocalDate buildDate = DateUtil.parseDate(((EditText) findViewById(R.id.dwelling_buidDate)).getText().toString());
+		LocalDate buildDate = DateUtil.parseDate(((EditText) findViewById(R.id.dwelling_buildDate)).getText().toString());
 		boolean available = ((CheckBox) findViewById(R.id.dwelling_detail_available)).isChecked();
 
 		long applicantId = getSelectedApplicantId();
