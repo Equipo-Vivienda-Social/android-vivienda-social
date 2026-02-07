@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ViviendaSocial"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.DwellingRegisterView"
+            android:exported="false" />
+        <activity
             android:name=".view.ApplicantDetailView"
             android:exported="false" />
         <activity
