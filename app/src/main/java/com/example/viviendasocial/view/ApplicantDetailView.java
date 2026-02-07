@@ -1,13 +1,13 @@
 package com.example.viviendasocial.view;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,6 +44,27 @@ public class ApplicantDetailView extends AppCompatActivity implements ApplicantD
         recyclerView.setAdapter(adapter);
     }
 
+    public void deleteApplicant(View view) {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setMessage("¿Are you sure you want to delete this applicant?")
+                .setPositiveButton("Delete",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                long applicant_id = getIntent().getLongExtra("applicant_id", -1);
+                                presenter.deleteApplicant(applicant_id);
+                            }
+                        })
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        });
+        alert.create().show();
+    }
+
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
@@ -52,5 +73,12 @@ public class ApplicantDetailView extends AppCompatActivity implements ApplicantD
     @Override
     public void showError(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void navigateToApplicantList() {
+        Intent intent = new Intent(this, ApplicantListView.class);
+        startActivity(intent);
+        finish();
     }
 }
