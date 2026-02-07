@@ -13,7 +13,7 @@ import com.example.viviendasocial.domain.Dwelling;
 
 public class DwellingDetailAdapter extends RecyclerView.Adapter<DwellingDetailAdapter.ViewHolder> {
 
-	public Dwelling dwelling;
+	private Dwelling dwelling;
 
 	public DwellingDetailAdapter(Dwelling dwelling){this.dwelling = dwelling;}
 
@@ -53,9 +53,18 @@ public class DwellingDetailAdapter extends RecyclerView.Adapter<DwellingDetailAd
 			itemStreet = itemView.findViewById(R.id.dwelling_detail_street);
 			itemCity = itemView.findViewById(R.id.dwelling_detail_city);
 			itemType = itemView.findViewById(R.id.dwelling_detail_type);
-			itemBuildDate = itemView.findViewById(R.id.dwelling_detail_build_date);
+			itemBuildDate = itemView.findViewById(R.id.dwelling_detail_buildDate);
 			itemRooms = itemView.findViewById(R.id.dwelling_detail_rooms);
 			itemAvailable = itemView.findViewById(R.id.dwelling_detail_available);
 		}
+	}
+
+	public Dwelling getDwelling() {
+		return dwelling;
+	}
+
+	public void setDwelling(Dwelling dwelling) {
+		this.dwelling = dwelling;
+		notifyDataSetChanged();
 	}
 }

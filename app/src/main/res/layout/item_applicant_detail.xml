@@ -18,6 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Juan Pérez"
+            android:textColor="@android:color/black"
             android:textSize="22sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,6 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="DNI: 12345678A"
+            android:textColor="@android:color/black"
             android:textStyle="italic"
             app:layout_constraintTop_toBottomOf="@id/applicant_detail_name"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -37,6 +39,7 @@
             android:id="@+id/applicant_detail_birthdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:text="Nacimiento: 1990-05-12"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/applicant_detail_dni"
@@ -47,6 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Salario: 18000 €"
+            android:textColor="@android:color/black"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/applicant_detail_birthdate"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -56,6 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Miembros familiares: 3"
+            android:textColor="@android:color/black"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@id/applicant_detail_salary"
             app:layout_constraintStart_toStartOf="parent"/>
@@ -63,6 +68,7 @@
         <TextView
             android:id="@+id/applicant_detail_employed"
             android:layout_width="wrap_content"
+            android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:text="Empleado 🟢"
             android:textStyle="bold"
@@ -92,7 +98,7 @@
             android:layout_height="wrap_content"
             android:text="Eliminar 🗑️"
             android:textColor="@android:color/white"
-            android:backgroundTint="@android:color/holo_red_dark"
+            android:backgroundTint="@color/colorButton"
             android:padding="4dp"
             android:textSize="12sp"
             app:layout_constraintTop_toBottomOf="@id/applicant_detail_employed"

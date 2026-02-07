@@ -70,8 +70,6 @@ public class ApplicantDetailView extends AppCompatActivity implements ApplicantD
         if (applicantId == -1) return;
 
         Intent intent = new Intent(this, ApplicantRegisterView.class);
-
-        //pasamos el objeto
         intent.putExtra("applicant", adapter.applicant);
         startActivity(intent);
     }
