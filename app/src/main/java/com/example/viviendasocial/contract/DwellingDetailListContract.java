@@ -12,14 +12,24 @@ public interface DwellingDetailListContract {
 		}
 
 		void loadDwellingById(long id, OnLoadListener listener);
+
+		interface onDeleteListener {
+			void onDeleteSuccess();
+			void onDeleteError(String message);
+		}
+
+		void deleteDwelling(long id, DwellingDetailListContract.Model.onDeleteListener listener);
 	}
 
 	interface View {
 		void showDwelling(Dwelling dwelling);
 		void showError(String message);
+		void navigateToDwellingListView();
+		void showMessage(String message);
 	}
 
 	interface Presenter {
 		void loadDwelling(long id);
+		void deleteDwelling(long id);
 	}
 }

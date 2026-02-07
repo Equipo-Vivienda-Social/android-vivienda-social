@@ -30,4 +30,25 @@ public class DwellingDetailModel implements DwellingDetailListContract.Model {
 			}
 		});
 	}
+
+	@Override
+	public void deleteDwelling(long id, onDeleteListener listener) {
+		DwellingApiInterface dwellingApi = ViviendaSocialApi.buildService(DwellingApiInterface.class);
+		Call<Void> deleteCall = dwellingApi.deleteDwelling(id);
+		deleteCall.enqueue(new Callback<Void>() {
+			@Override
+			public void onResponse(Call<Void> call, Response<Void> response) {
+				if (response.code() == 204) {
+					listener.onDeleteSuccess();
+				} else if (response.code() == 404) {
+					listener.onDeleteError("Dwelling couldn't be found");
+				}
+			}
+
+			@Override
+			public void onFailure(Call<Void> call, Throwable t) {
+				listener.onDeleteError("Couldn't connect to the server");
+			}
+		});
+	}
 }

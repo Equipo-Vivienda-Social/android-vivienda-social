@@ -1,9 +1,13 @@
 package com.example.viviendasocial.view;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -44,8 +48,41 @@ public class DwellingDetailView extends AppCompatActivity implements DwellingDet
 		recyclerView.setAdapter(adapter);
 	}
 
+	public void deleteDwelling(View view) {
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		alert.setMessage("¿Are you sure you want to delete this dwelling?")
+				.setPositiveButton("Delete",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								long dwelling_id = getIntent().getLongExtra("dwelling_id", -1);
+								presenter.deleteDwelling(dwelling_id);
+							}
+						})
+				.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int i) {
+								dialogInterface.dismiss();
+							}
+						});
+		alert.create().show();
+	}
+
 	@Override
 	public void showError(String message) {
 		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void navigateToDwellingListView() {
+		Intent intent = new Intent(this, DwellingListView.class);
+		startActivity(intent);
+		finish();
+	}
+
+	@Override
+	public void showMessage(String message) {
+
 	}
 }
