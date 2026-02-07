@@ -1,5 +1,6 @@
 package com.example.viviendasocial.view;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.viviendasocial.R;
 import com.example.viviendasocial.contract.ApplicantRegisterContract;
+import com.example.viviendasocial.domain.Applicant;
 import com.example.viviendasocial.presenter.ApplicantRegisterPresenter;
 import com.example.viviendasocial.util.DateUtil;
 
@@ -29,7 +31,19 @@ public class ApplicantRegisterView extends AppCompatActivity implements Applican
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_applicant_register_view);
 
-        presenter = new ApplicantRegisterPresenter(this);
+        //Recogemos applicant solo si editamos
+        Applicant applicant =(Applicant) getIntent().getSerializableExtra("applicant");
+        presenter = new ApplicantRegisterPresenter(this, applicant);
+
+        if (applicant != null) {
+            ((EditText) findViewById(R.id.applicant_name)).setText(applicant.getName());
+            ((EditText) findViewById(R.id.applicant_surname)).setText(applicant.getSurname());
+            ((EditText) findViewById(R.id.applicant_dni)).setText(applicant.getDni());
+            ((EditText) findViewById(R.id.applicant_birthDate)).setText(DateUtil.formatDate(applicant.getBirthDate()));
+            ((EditText) findViewById(R.id.applicant_salary)).setText(String.valueOf(applicant.getSalary()));
+            ((EditText) findViewById(R.id.applicant_familyMembers)).setText(String.valueOf(applicant.getFamilyMembers()));
+            ((CheckBox) findViewById(R.id.applicant_employed)).setChecked(applicant.isEmployed());
+        }
     }
 
     public void registerApplicant(View view) {
@@ -41,7 +55,20 @@ public class ApplicantRegisterView extends AppCompatActivity implements Applican
         int familyMembers = Integer.parseInt(((EditText) findViewById(R.id.applicant_familyMembers)).getText().toString());
         boolean employed = ((CheckBox) findViewById(R.id.applicant_employed)).isChecked();
 
-        presenter.register(name, surname,dni,birthDate, salary, familyMembers, employed);
+        Applicant applicant = (Applicant) getIntent().getSerializableExtra("applicant");
+        boolean isEditing= applicant != null;
+
+        if (isEditing) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("¿Are you sure you want to modify the applicant?")
+                    .setPositiveButton("Modify", (dialogInterface, i) -> {
+                        presenter.register(name, surname, dni, birthDate,salary, familyMembers,employed);
+                    })
+                    .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+            alert.create().show();
+        } else {
+            presenter.register(name, surname, dni, birthDate,salary, familyMembers,employed);
+        }
     }
 
     @Override

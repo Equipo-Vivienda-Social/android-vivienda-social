@@ -7,14 +7,16 @@ import com.example.viviendasocial.model.ApplicantRegisterModel;
 import java.time.LocalDate;
 
 public class ApplicantRegisterPresenter implements ApplicantRegisterContract.Presenter,
-ApplicantRegisterContract.Model.OnRegisterListener {
+ApplicantRegisterContract.Model.OnRegisterListener, ApplicantRegisterContract.Model.onModifyListener {
 
     private ApplicantRegisterContract.Model model;
     private ApplicantRegisterContract.View view;
+    private Applicant currentApplicant;
 
-    public ApplicantRegisterPresenter(ApplicantRegisterContract.View view) {
+    public ApplicantRegisterPresenter(ApplicantRegisterContract.View view, Applicant applicant) {
         this.view = view;
         model = new ApplicantRegisterModel();
+        this.currentApplicant = applicant;
     }
 
     @Override
@@ -42,6 +44,28 @@ ApplicantRegisterContract.Model.OnRegisterListener {
                 .employed(employed)
                 .build();
 
-        model.register(applicant, this);
+        if (currentApplicant == null) {
+            model.register(applicant, this);
+        } else {
+            applicant.setId(currentApplicant.getId());
+            model.modifyApplicant(applicant, this);
+        }
+
+    }
+
+    @Override
+    public void modifyApplicant(long id, String name, String surname, String dni, LocalDate birthDate, int salary, int familyMembers, boolean employed) {
+            register(name, surname, dni, birthDate, salary, familyMembers, employed);
+    }
+
+    @Override
+    public void onModifySuccess(Applicant applicant) {
+        view.showMessage("Applicant modified successfully");
+        view.navigateToApplicantList();
+    }
+
+    @Override
+    public void onModifyError(String message) {
+        view.showError(message);
     }
 }
