@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.viviendasocial.R;
@@ -60,11 +61,30 @@ public class DwellingRegisterView extends AppCompatActivity implements DwellingR
 		boolean available = ((CheckBox) findViewById(R.id.dwelling_detail_available)).isChecked();
 
 		long applicantId = getSelectedApplicantId();
-
 		List<Long> applicantsIds = new ArrayList<>();
 		applicantsIds.add(applicantId);
 
-		presenter.registerDwelling(street, city, type, room, buildDate, available, applicantsIds);
+		Dwelling dwelling = (Dwelling) getIntent().getSerializableExtra("dwelling");
+		boolean isEditing = dwelling != null;
+
+		confirmRegisterDwelling(street, city, type, room, buildDate, available, applicantsIds, isEditing);
+	}
+
+
+	private void confirmRegisterDwelling(String street, String city, String type, int room,
+	                                     LocalDate buildDate, boolean available, List<Long> applicantsIds,
+	                                     boolean isEditing) {
+		if (isEditing) {
+			AlertDialog.Builder alert = new AlertDialog.Builder(this);
+			alert.setMessage("¿Are you sure you want to modify the dwelling?")
+					.setPositiveButton("Modify", (dialogInterface, i) -> {
+						presenter.registerDwelling(street, city, type, room, buildDate, available, applicantsIds);
+					})
+					.setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss());
+			alert.create().show();
+		} else {
+			presenter.registerDwelling(street, city, type, room, buildDate, available, applicantsIds);
+		}
 	}
 
 	private long getSelectedApplicantId() {

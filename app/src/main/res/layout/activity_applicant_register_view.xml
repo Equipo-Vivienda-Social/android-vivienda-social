@@ -12,7 +12,8 @@
         android:layout_height="729dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+        tools:layout_editor_absoluteY="1dp"
+        android:textColor="@android:color/black">
 
         <EditText
             android:id="@+id/applicant_name"
@@ -20,12 +21,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Name"
+            android:textColor="@android:color/black"
             android:inputType="text" />
 
         <EditText
             android:id="@+id/applicant_surname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
             android:hint="Surname"
             android:ems="10"
             android:inputType="text" />
@@ -35,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="ID"
+            android:textColor="@android:color/black"
             android:ems="10"
             android:inputType="text" />
 
@@ -43,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Date of birth"
+            android:textColor="@android:color/black"
             android:ems="10"
             android:inputType="date" />
 
@@ -52,11 +57,13 @@
             android:layout_height="wrap_content"
             android:hint="Salary"
             android:ems="10"
+            android:textColor="@android:color/black"
             android:inputType="number" />
 
         <EditText
             android:id="@+id/applicant_familyMembers"
             android:layout_width="match_parent"
+            android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:hint="Number of family members"
             android:ems="10"
@@ -65,6 +72,7 @@
         <CheckBox
             android:id="@+id/applicant_employed"
             android:layout_width="match_parent"
+            android:textColor="@android:color/black"
             android:layout_height="wrap_content"
             android:text="Actually employed" />
 

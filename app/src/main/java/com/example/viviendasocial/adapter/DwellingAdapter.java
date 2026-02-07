@@ -42,8 +42,8 @@ public class DwellingAdapter extends RecyclerView.Adapter<DwellingAdapter.Dwelli
         holder.itemDwellingType.setText(dwelling.getType());
         holder.itemDwellingRoom.setText("Rooms: " + dwelling.getRoom());
         holder.itemDwellingAvailable.setText(dwelling.isAvailable()
-                ? "Available 🟢"
-                : "Not available 🔴");
+                ? "Available"
+                : "Not available");
 
         holder.itemView.setOnClickListener(v -> { //al clickar el atista muestra vista detalle
             Intent intent = new Intent(context, DwellingDetailView.class);

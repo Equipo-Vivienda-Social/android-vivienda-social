@@ -35,8 +35,8 @@ public class ApplicantDetailAdapter extends RecyclerView.Adapter<ApplicantDetail
         holder.itemDetailSalary.setText(String.valueOf("Salary: " + applicant.getSalary() + " €"));
         holder.itemDetailFamilyMembers.setText(String.valueOf("Number of family members: " + applicant.getFamilyMembers()));
         holder.itemDetailEmployed.setText(applicant.isEmployed()
-                ? "Empleado 🟢"
-                : "Desempleado 🔴"
+                ? "Employed"
+                : "Unemployed"
         );
     }
 
