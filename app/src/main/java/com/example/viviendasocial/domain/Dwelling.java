@@ -17,5 +17,5 @@ public class Dwelling {
     private int room;
     private boolean available;
     private LocalDate buildDate;
-    private List<Applicant> applicants;
+    private List<Long> applicantsIds;
 }
