@@ -14,11 +14,21 @@ public interface ApplicantRegisterContract {
         }
 
         void register(Applicant applicant, OnRegisterListener listener);
+
+        interface onModifyListener {
+            void onModifySuccess(Applicant applicant);
+            void onModifyError(String message);
+        }
+
+        void modifyApplicant(Applicant applicant, onModifyListener listener);
     }
 
     interface Presenter {
         void register(String name, String surname, String dni, LocalDate birthDate,
                       int salary, int familyMembers, boolean employed);
+        void modifyApplicant(long id, String name, String surname, String dni, LocalDate birthDate,
+                      int salary, int familyMembers, boolean employed);
+
     }
 
     interface View {

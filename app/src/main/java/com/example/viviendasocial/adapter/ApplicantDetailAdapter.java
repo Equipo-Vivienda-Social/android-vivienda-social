@@ -13,7 +13,7 @@ import com.example.viviendasocial.domain.Applicant;
 
 public class ApplicantDetailAdapter extends RecyclerView.Adapter<ApplicantDetailAdapter.ViewHolder> {
 
-    private Applicant applicant;
+    public Applicant applicant;
 
     public ApplicantDetailAdapter(Applicant applicant) {
         this.applicant = applicant;

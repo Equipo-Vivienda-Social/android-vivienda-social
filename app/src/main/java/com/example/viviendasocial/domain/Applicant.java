@@ -1,5 +1,6 @@
 package com.example.viviendasocial.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class Applicant {
+public class Applicant implements Serializable {
     private long id;
     private String name;
     private String surname;

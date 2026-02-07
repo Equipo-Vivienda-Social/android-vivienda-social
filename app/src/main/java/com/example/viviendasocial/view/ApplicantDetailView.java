@@ -65,6 +65,17 @@ public class ApplicantDetailView extends AppCompatActivity implements ApplicantD
         alert.create().show();
     }
 
+    public void editApplicant(View view) {
+        long applicantId = getIntent().getLongExtra("applicant_id", -1);
+        if (applicantId == -1) return;
+
+        Intent intent = new Intent(this, ApplicantRegisterView.class);
+
+        //pasamos el objeto
+        intent.putExtra("applicant", adapter.applicant);
+        startActivity(intent);
+    }
+
     @Override
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

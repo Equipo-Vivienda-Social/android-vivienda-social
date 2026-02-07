@@ -19,6 +19,7 @@ public interface ApplicantDetailContract {
         }
 
         void deleteApplicant(long id, onDeleteListener listener);
+
     }
 
     interface Presenter {

@@ -32,4 +32,29 @@ public class ApplicantRegisterModel implements ApplicantRegisterContract.Model {
             }
         });
     }
+
+    @Override
+    public void modifyApplicant(Applicant applicant, onModifyListener listener) {
+        ApplicantApiInterface api = ViviendaSocialApi.buildService(ApplicantApiInterface.class);
+        Call<Applicant> modifyCall = api.modifyApplicant(applicant.getId(), applicant);
+        modifyCall.enqueue(new Callback<>() {
+            @Override
+            public void onResponse(Call<Applicant> call, Response<Applicant> response) {
+                if (response.code() == 200) {
+                    listener.onModifySuccess(response.body());
+                } else if (response.code() == 404) {
+                    listener.onModifyError("Applicant couldn't be found");
+                } else if (response.code() == 400) {
+                    listener.onModifyError("Bad Request");
+                } else if (response.code() == 500) {
+                    listener.onModifyError("Internal Server error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Applicant> call, Throwable t) {
+                listener.onModifyError("Couldn't connect to the server");
+            }
+        });
+    }
 }
