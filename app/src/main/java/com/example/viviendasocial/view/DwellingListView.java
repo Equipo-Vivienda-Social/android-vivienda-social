@@ -79,6 +79,10 @@ public class DwellingListView extends AppCompatActivity implements DwellingListC
             Intent intent = new Intent(this, ApplicantListView.class);
             startActivity(intent);
             return true;
+        } else if (item.getItemId() == R.id.action_register) {
+            Intent intent = new Intent(this, DwellingRegisterView.class);
+            startActivity(intent);
+            return  true;
         }
 
         return false;

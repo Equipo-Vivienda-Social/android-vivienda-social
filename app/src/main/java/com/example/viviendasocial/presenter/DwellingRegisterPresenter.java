@@ -20,9 +20,10 @@ public class DwellingRegisterPresenter implements DwellingRegisterContract.Prese
 	}
 
 	@Override
-	public void registerDwelling(String street, String type, int room, boolean available, LocalDate buildDate, List<Long> applicantsIds) {
+	public void registerDwelling(String street, String city, String type, int room, LocalDate buildDate, boolean available, List<Long> applicantsIds) {
 		Dwelling dwelling = Dwelling.builder()
 				.street(street)
+				.city(city)
 				.type(type)
 				.room(room)
 				.available(available)

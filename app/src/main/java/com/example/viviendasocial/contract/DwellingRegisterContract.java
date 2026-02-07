@@ -26,7 +26,7 @@ public interface DwellingRegisterContract {
 	}
 
 	interface Presenter {
-		void registerDwelling( String street, String type, int room, boolean available, LocalDate buildDate, List<Long> applicantsIds);
+		void registerDwelling( String street, String city, String type, int room,  LocalDate buildDate, boolean available, List<Long> applicantsIds);
 
 		void loadApplicants();
 	}
