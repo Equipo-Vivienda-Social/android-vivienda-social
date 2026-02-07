@@ -1,6 +1,7 @@
 package com.example.viviendasocial.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viviendasocial.R;
 import com.example.viviendasocial.domain.Dwelling;
+import com.example.viviendasocial.view.DwellingDetailView;
 
 import java.util.List;
 
@@ -42,6 +44,12 @@ public class DwellingAdapter extends RecyclerView.Adapter<DwellingAdapter.Dwelli
         holder.itemDwellingAvailable.setText(dwelling.isAvailable()
                 ? "Available 🟢"
                 : "Not available 🔴");
+
+        holder.itemView.setOnClickListener(v -> { //al clickar el atista muestra vista detalle
+            Intent intent = new Intent(context, DwellingDetailView.class);
+            intent.putExtra("dwelling_id", dwelling.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override

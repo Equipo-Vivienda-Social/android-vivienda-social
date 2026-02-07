@@ -39,12 +39,12 @@ public class DwellingRegisterView extends AppCompatActivity implements DwellingR
 	}
 
 	public void registerDwelling(View view) {
-		String street =((EditText) findViewById(R.id.dwelling_street)).getText().toString();
-		String city = ((EditText) findViewById(R.id.dwelling_city)).getText().toString();
-		String type = ((EditText) findViewById(R.id.dwelling_type)).getText().toString();
+		String street =((EditText) findViewById(R.id.dwelling_detail_street)).getText().toString();
+		String city = ((EditText) findViewById(R.id.dwelling_detail_city)).getText().toString();
+		String type = ((EditText) findViewById(R.id.dwelling_detail_type)).getText().toString();
 		int room = Integer.parseInt(((EditText) findViewById(R.id.dwelling_room)).getText().toString());
 		LocalDate buildDate = DateUtil.parseDate(((EditText) findViewById(R.id.dwelling_buidDate)).getText().toString());
-		boolean available = ((CheckBox) findViewById(R.id.dwelling_available)).isChecked();
+		boolean available = ((CheckBox) findViewById(R.id.dwelling_detail_available)).isChecked();
 
 		long applicantId = getSelectedApplicantId();
 
