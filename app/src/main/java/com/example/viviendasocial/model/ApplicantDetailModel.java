@@ -14,7 +14,7 @@ public class ApplicantDetailModel implements ApplicantDetailContract.Model {
     public void loadApplicantById(long id, OnLoadApplicant listener) {
         ApplicantApiInterface api = ViviendaSocialApi.buildService(ApplicantApiInterface.class);
         Call<Applicant> getByIdCall = api.getApplicantById(id);
-        getByIdCall.enqueue(new Callback<Applicant>() {
+        getByIdCall.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<Applicant> call, Response<Applicant> response) {
                 if (response.code() == 200) {

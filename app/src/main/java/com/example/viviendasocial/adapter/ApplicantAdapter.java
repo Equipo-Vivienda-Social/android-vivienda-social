@@ -1,6 +1,8 @@
 package com.example.viviendasocial.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.viviendasocial.R;
 import com.example.viviendasocial.domain.Applicant;
+import com.example.viviendasocial.view.ApplicantDetailView;
 
 import java.util.List;
 
@@ -39,12 +42,19 @@ public class ApplicantAdapter extends RecyclerView.Adapter<ApplicantAdapter.Appl
         Applicant applicant = applicantList.get(position);
 
         holder.itemApplicantName.setText(applicant.getName() + " " + applicant.getSurname());
-        holder.itemApplicantDni.setText(applicant.getDni());
-        holder.itemApplicantSalary.setText(applicant.getSalary() + " €");
+        holder.itemApplicantDni.setText("ID: " + applicant.getDni());
+        holder.itemApplicantSalary.setText(String.valueOf("Salary: " + applicant.getSalary() + " €"));
         holder.itemApplicantEmployed.setText(applicant.isEmployed()
                 ? "Empleado 🟢"
                 : "Desempleado 🔴"
         );
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, ApplicantDetailView.class);
+            Log.d("ApplicantAdapter", "Seleccionado applicant ID: " + applicant.getId());
+            intent.putExtra("applicant_id", applicant.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
